@@ -1,0 +1,69 @@
+#!/bin/bash
+
+
+# https://osoyoo.com/2021/01/15/how-to-install-a-local-blynk-server-in-your-pc-and-get-a-local-blynk-token/
+
+# includes private server doc
+# https://github.com/Peterkn2001/blynk-server#quick-local-server-setup
+
+echo 'starting Blynk private server as Docker container'
+# last release 0.41.17
+
+cd /home/pi/Blynk
+
+# armv v7
+# https://github.com/maxbanton/blynk-server
+# 0.41.14
+
+# arm64
+# linuxkonsult/rasbian-blynk
+
+
+# https://github.com/mpherg/blynk-server   linux intel
+# https://github.com/hortio/docker-blynk
+
+# good doc on server.properties
+# https://github.com/Peterkn2001/blynk-server
+
+# 9443 used by portainer
+# 8080 used by domoticz
+
+
+# run = create and start
+# docker bla is same as docker container bla
+# docker image , docker volume
+
+
+echo 'create named image. define port mapping'
+# http://192.168.1.206:8089 redirect to blynk.io
+# https://192.168.1.206:9444 . claim unsecured, then admin console
+# https://192.168.1.206:7443 . No response
+
+#server.property 
+
+#http, plain web sockets and plain hardware port
+#http.port=8080
+
+#secured https, web sockets and app port
+#https.port=9443
+
+#administration https port
+#administration.https.port=7443
+
+echo 'do not forget to create the config and data directory'
+
+# config/mail.properties
+# config/server.properties
+# must exist in the host file system
+
+# data directory will be used by Blynk container to store server stuff
+docker create -p 8089:8080 -p 9444:9443 -p7443:7443 --name=Blynk_private_server --restart=always -v /home/pi/APP/Blynk/config:/config -v /home/pi/APP/Blynk/data:/data maxbanton/blynk-server:latest
+
+echo 'start container from APP'
+docker start Blynk_private_server
+
+docker ps | grep Blynk
+
+echo 'local http port 8090'
+echo 'local https and android app port 7444'
+
