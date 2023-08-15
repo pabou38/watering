@@ -1,3 +1,12 @@
 Blynk legacy
 private server
 docker container
+
+
+
+# data directory will be used by Blynk container to store server stuff
+docker create -p 8089:8080 -p 9444:9443 -p7443:7443 --name=Blynk_private_server --restart=always -v /home/pi/APP/Blynk/config:/config -v /home/pi/APP/Blynk/data:/data maxbanton/blynk-server:latest
+
+echo 'start container from APP'
+docker start Blynk_private_server
+
