@@ -1,13 +1,6 @@
-Blynk legacy
-private Blynk server running as docker container on raspberry PI 
+Blynk legacy server
 
-see 
+- private Blynk server running as docker container on raspberry PI 
+- see START_BLYNK_SERVER shell script to start Blynk server container
 
-
-
-# data directory will be used by Blynk container to store server stuff
-docker create -p 8089:8080 -p 9444:9443 -p7443:7443 --name=Blynk_private_server --restart=always -v /home/pi/APP/Blynk/config:/config -v /home/pi/APP/Blynk/data:/data maxbanton/blynk-server:latest
-
-echo 'start container from APP'
-docker start Blynk_private_server
 
